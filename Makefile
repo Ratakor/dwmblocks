@@ -8,19 +8,14 @@ LDFLAGS := -lX11
 # # OpenBSD (uncomment)
 #LDFLAGS += -L/usr/X11R6/lib -I/usr/X11R6/include
 
-all: options dwmblocks
-
 options:
 	@echo dwmblocks build options:
 	@echo "CFLAGS  = ${CFLAGS}"
 	@echo "LDFLAGS = ${LDFLAGS}"
 	@echo "CC      = ${CC}"
 
-dwmblocks: dwmblocks.c blocks.def.h blocks.h
+dwmblocks: dwmblocks.o config.h
 	${CC} -o dwmblocks dwmblocks.c ${CFLAGS} ${LDFLAGS}
-
-blocks.h:
-	cp blocks.def.h $@
 
 clean:
 	rm -f *.o *.gch dwmblocks
@@ -33,4 +28,4 @@ install: dwmblocks
 uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/dwmblocks
 
-.PHONY: all options clean install uninstall
+.PHONY: options clean install uninstall
