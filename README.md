@@ -1,6 +1,6 @@
 # Ratakor's dwmblocks
-no change except for blocks.h iirc
-and blocks.h -> config.h
+see dwm config and dotfiles/.local/bin/statusbar for the interesting stuff
+also blocks.h -> config.h
 
 # dwmblocks
 Modular status bar for dwm written in c.
