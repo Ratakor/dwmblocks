@@ -1,6 +1,9 @@
 # Ratakor's dwmblocks
 see dwm config and dotfiles/.local/bin/statusbar for the interesting stuff
-also blocks.h -> config.h
+
+blocks.h -> config.h
+
+do kill -number $(pidof dwmblocks) to manually refresh process, number is Update Signal + 34
 
 # dwmblocks
 Modular status bar for dwm written in c.
