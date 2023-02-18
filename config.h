@@ -16,7 +16,7 @@ static const Block blocks[] = {
     {"",      "sb_weather",       3600,                  0},
     /*{"",      "sb_daypercent",    600,                   0},*/
     {"",      "sb_date",          3600,                  0},
-    {"",      "sb_time",          1,                     0},
+    {"",      "sb_time",          60,                    0},
 };
 
 //sets delimeter between status commands. NULL character ('\0') means no delimeter.
