@@ -1,8 +1,8 @@
 # Ratakor's build of dwmblocks
-See dwm config and dotfiles/.local/bin/statusbar for the interesting stuff.
-Also, blocks.h -> config.h
-
-Do kill -number $(pidof dwmblocks) to manually refresh process, number is Update Signal + 34.
+- blocks.h -> config.h
+- You will need [statuscolors](https://dwm.suckless.org/patches/statuscolors/) patch and [that fix](https://github.com/anurag3301/my-dwm/blob/main/patches/dwm-statucolours-fix.diff) from anurag3301 for the colors to work with dwm. (These are dwm patches, not dwmblocks)
+- Be sure that you export XDG_CONFIG_HOME in your profile or change the location of the modules.
+- Do kill -number $(pidof dwmblocks) to manually refresh process, number is Update Signal + 34.
 # Install
     make clean install
 # dwmblocks
