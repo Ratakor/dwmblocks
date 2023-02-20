@@ -3,7 +3,8 @@ See dwm config and dotfiles/.local/bin/statusbar for the interesting stuff.
 Also, blocks.h -> config.h
 
 Do kill -number $(pidof dwmblocks) to manually refresh process, number is Update Signal + 34.
-
+# Install
+    make clean install
 # dwmblocks
 Modular status bar for dwm written in c.
 # usage
