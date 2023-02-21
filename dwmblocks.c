@@ -55,7 +55,7 @@ static char statusstr[2][STATUSLENGTH];
 static int statusContinue = 1;
 static int returnStatus = 0;
 
-//opens process *cmd and stores output in *output
+/* opens process *cmd and stores output in *output */
 void getcmd(const Block *block, char *output)
 {
 	strcpy(output, block->icon);
@@ -66,11 +66,11 @@ void getcmd(const Block *block, char *output)
 	fgets(output+i, CMDLENGTH-i-delimLen, cmdf);
 	i = strlen(output);
 	if (i == 0) {
-		//return if block and command output are both empty
+		/* return if block and command output are both empty */
 		pclose(cmdf);
 		return;
 	}
-	//only chop off newline if one is present at the end
+	/* only chop off newline if one is present at the end */
 	i = output[i-1] == '\n' ? i-1 : i;
 	if (delim[0] != '\0') {
 		strncpy(output+i, delim, delimLen);
@@ -122,13 +122,13 @@ int getstatus(char *str, char *last)
 	for (unsigned int i = 0; i < LENGTH(blocks); i++)
 		strcat(str, statusbar[i]);
 	str[strlen(str)-strlen(delim)] = '\0';
-	return strcmp(str, last);//0 if they are the same
+	return strcmp(str, last); /* 0 if they are the same */
 }
 
 #ifndef NO_X
 void setroot()
 {
-	if (!getstatus(statusstr[0], statusstr[1]))//Only set root if text has changed.
+	if (!getstatus(statusstr[0], statusstr[1])) /* Only set root if text has changed. */
 		return;
 	XStoreName(dpy, root, statusstr[0]);
 	XFlush(dpy);
@@ -149,7 +149,7 @@ int setupX()
 
 void pstdout()
 {
-	if (!getstatus(statusstr[0], statusstr[1]))//Only write out if text has changed.
+	if (!getstatus(statusstr[0], statusstr[1])) /* Only write out if text has changed. */
 		return;
 	printf("%s\n",statusstr[0]);
 	fflush(stdout);
@@ -191,7 +191,7 @@ void termhandler()
 
 int main(int argc, char** argv)
 {
-	for (int i = 0; i < argc; i++) {//Handle command line arguments
+	for (int i = 0; i < argc; i++) { /* Handle command line arguments */
 		if (!strcmp("-d",argv[i]))
 			strncpy(delim, argv[++i], delimLen);
 		else if (!strcmp("-p",argv[i]))
