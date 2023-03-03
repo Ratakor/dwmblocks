@@ -1,3 +1,12 @@
-#!/bin/bash
-WEATHER=$(curl -s v2.wttr.in | awk '/Weather:/ {gsub(",", " "); print $2 " " $3 " " $4}')
-[ -n "$(printf "$WEATHER" | grep "Sunny")" ] && printf "\x09$WEATHER\x01\n" || printf "$WEATHER\n"
+#!/bin/sh
+WEATHER="$(curl -s v2.wttr.in | awk '/Weather:/ {gsub(",", " "); print $2 " " $4 " " $5}')"
+ICON="$(printf "$WEATHER" | awk '{print $1}')"
+TEMP1="$(printf "$WEATHER" | awk '{print $2}')"
+TEMP2="$(printf "$WEATHER" | awk '{print $3}')"
+
+case "$TEMP1" in
++*|-*)
+    printf "$ICON $TEMP1\n" ;;
+*)
+    printf "$ICON $TEMP2\n" ;;
+esac
