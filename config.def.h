@@ -11,6 +11,7 @@ static const Block blocks[] = {
     //{"",      "$XDG_CONFIG_HOME/dwmblocks/blocks/sb_localip",       3600,                  0},
     //{"",      "$XDG_CONFIG_HOME/dwmblocks/blocks/sb_publicip",      18000,                 0},
     {"",      "$XDG_CONFIG_HOME/dwmblocks/blocks/sb_volume",        0,                     10},
+    {"",      "$XDG_CONFIG_HOME/dwmblocks/blocks/sb_mic",           0,                     11},
     //{"",      "$XDG_CONFIG_HOME/dwmblocks/blocks/sb_news",          3600,                  0},
     //{"",      "$XDG_CONFIG_HOME/dwmblocks/blocks/sb_mail",          180,                   0},
     {"",      "$XDG_CONFIG_HOME/dwmblocks/blocks/sb_weather",       18000,                 8},

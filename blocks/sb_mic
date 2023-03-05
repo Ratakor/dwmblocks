@@ -1,0 +1,7 @@
+#!/bin/bash
+ICON_MUTED=''
+ICON_UNMUTED=''
+
+[ -n "$(pactl get-source-mute @DEFAULT_SOURCE@ | grep yes)" ] &&
+	printf "\x05$ICON_MUTED\x01\n" ||
+	printf "$ICON_UNMUTED\n"
