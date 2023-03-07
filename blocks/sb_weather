@@ -5,8 +5,6 @@ TEMP1="$(printf "$WEATHER" | awk '{print $2}')"
 TEMP2="$(printf "$WEATHER" | awk '{print $3}')"
 
 case "$TEMP1" in
-+*|-*)
-    printf "$ICON $TEMP1\n" ;;
-*)
-    printf "$ICON $TEMP2\n" ;;
++*|-*)  printf "$ICON $TEMP1\n" ;;
+*)      printf "$ICON $TEMP2\n" ;;
 esac

@@ -1,5 +1,5 @@
-#!/bin/bash
+#!/bin/sh
 ICON=''
 FIRE=''
-TEMP=$(sensors | awk '/temp1/ {gsub("+", " "); gsub("\\..", " "); print $2}')
-[ "$TEMP" -ge 70 ] && printf "\x08$FIRE $TEMP°C\x01\n" || printf "$ICON $TEMP°C\n"
+TEMP="$(sensors | awk '/temp1/ {gsub("+", " "); gsub("\\..", " "); print $2}')"
+[ "$TEMP" -ge 70 ] && printf "\06$FIRE $TEMP°C\01\n" || printf "$ICON $TEMP°C\n"

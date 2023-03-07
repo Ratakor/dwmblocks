@@ -1,7 +1,6 @@
-#!/bin/bash
-#printf "$(amixer get Master | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/')%%"
+#!/bin/sh
 ICON_ON=''
 ICON_OFF=''
-VOLUME=$(pamixer --get-volume)
+VOLUME="$(pamixer --get-volume)"
 
-[ $VOLUME = 0 ] && printf "\x03$ICON_OFF MUTE\x01\n" || printf "$ICON_ON $VOLUME%%\n"
+[ "$VOLUME" = 0 ] && printf "\03$ICON_OFF MUTE\01\n" || printf "$ICON_ON $VOLUME%%\n"

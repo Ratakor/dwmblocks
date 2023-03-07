@@ -1,19 +1,20 @@
 #!/bin/sh
-[ $(pgrep music) ] 2> /dev/null && exit
+[ $(pgrep music) ] 2> /dev/null && exit 0
 
 ICON_PAUSE=''
 ICON_PLAY=''
-PAUSE=$(printf "{ \"command\": [\"get_property_string\", \"pause\"] }\n" \
-    | socat - /tmp/mpvsocket 2> /dev/null | jq ".data" | sed 's/"//g')
-TITLE=$(printf "{ \"command\": [\"get_property\", \"filtered-metadata\"] }\n" \
-    | socat - /tmp/mpvsocket 2> /dev/null | jq ".data.Title" | sed 's/"//g')
+PAUSE="$(printf "{ \"command\": [\"get_property_string\", \"pause\"] }\n" \
+	| socat - /tmp/mpvsocket 2> /dev/null | jq ".data" | sed 's/"//g')"
+TITLE="$(printf "{ \"command\": [\"get_property\", \"filtered-metadata\"] }\n" \
+	| socat - /tmp/mpvsocket 2> /dev/null | jq ".data.Title" | sed 's/"//g')"
 
-[ "$TITLE" = "null" ] && TITLE=$(yt-dlp --skip-download --get-title \
-    $(printf "{ \"command\": [\"get_property\", \"path\"] }\n" \
-    | socat - /tmp/mpvsocket 2> /dev/null | jq ".data" | sed 's/"//') 2> /dev/null)
+[ "$TITLE" = "null" ] && TITLE="$(yt-dlp --skip-download --get-title \
+	$(printf "{ \"command\": [\"get_property\", \"path\"] }\n" \
+	| socat - /tmp/mpvsocket 2> /dev/null | jq ".data" | sed 's/"//') \
+	2> /dev/null)"
 
 if [ "$PAUSE" = "yes" ]; then
-    printf "$ICON_PAUSE $TITLE\n"
+	printf "$ICON_PAUSE $TITLE\n"
 elif [ "$PAUSE" = "no" ]; then
-    printf "$ICON_PLAY $TITLE\n"
+	printf "$ICON_PLAY $TITLE\n"
 fi

@@ -26,31 +26,31 @@ BAT_90_C='󰂋'
 BAT_100_C='󰂅'
 
 if [ "$(cat /sys/class/power_supply/BAT0/status)" = "Charging" ]; then
-    case $CAPACITY in
-        100)        printf "\x09$BAT_100_C \x04$CAPACITY%%\x01\n" ;;
-        9[0-9])     printf "\x09$BAT_90_C \x04$CAPACITY%%\x01\n" ;;
-        8[0-9])     printf "\x09$BAT_80_C \x01$CAPACITY%%\n" ;;
-        7[0-9])     printf "\x09$BAT_70_C \x01$CAPACITY%%\n" ;;
-        6[0-9])     printf "\x09$BAT_60_C \x01$CAPACITY%%\n" ;;
-        5[0-9])     printf "\x09$BAT_50_C \x01$CAPACITY%%\n" ;;
-        4[0-9])     printf "\x09$BAT_40_C \x01$CAPACITY%%\n" ;;
-        3[0-9])     printf "\x09$BAT_30_C \x01$CAPACITY%%\n" ;;
-        2[0-9])     printf "\x09$BAT_20_C \x01$CAPACITY%%\n" ;;
-        1[0-9])     printf "\x09$BAT_10_C \x01$CAPACITY%%\n" ;;
-        [0-9])      printf "\x09$BAT_0_C \x08$CAPACITY%%\x01\n" ;;
-    esac
+	case $CAPACITY in
+	100)        printf "\07$BAT_100_C\04 $CAPACITY%%\01\n" ;;
+	9[0-9])     printf "\07$BAT_90_C\04 $CAPACITY%%\01\n"  ;;
+	8[0-9])     printf "\07$BAT_80_C\01 $CAPACITY%%\n"     ;;
+	7[0-9])     printf "\07$BAT_70_C\01 $CAPACITY%%\n"     ;;
+	6[0-9])     printf "\07$BAT_60_C\01 $CAPACITY%%\n"     ;;
+	5[0-9])     printf "\07$BAT_50_C\01 $CAPACITY%%\n"     ;;
+	4[0-9])     printf "\07$BAT_40_C\01 $CAPACITY%%\n"     ;;
+	3[0-9])     printf "\07$BAT_30_C\01 $CAPACITY%%\n"     ;;
+	2[0-9])     printf "\07$BAT_20_C\01 $CAPACITY%%\n"     ;;
+	1[0-9])     printf "\07$BAT_10_C\01 $CAPACITY%%\n"     ;;
+	[0-9])      printf "\07$BAT_0_C\06 $CAPACITY%%\01\n"   ;;
+	esac
 else
-    case $CAPACITY in
-        100)        printf "$BAT_100 \x04$CAPACITY%%\x01\n" ;;
-        9[0-9])     printf "$BAT_90 \x04$CAPACITY%%\x01\n" ;;
-        8[0-9])     printf "$BAT_80 $CAPACITY%%\n" ;;
-        7[0-9])     printf "$BAT_70 $CAPACITY%%\n" ;;
-        6[0-9])     printf "$BAT_60 $CAPACITY%%\n" ;;
-        5[0-9])     printf "$BAT_50 $CAPACITY%%\n" ;;
-        4[0-9])     printf "$BAT_40 $CAPACITY%%\n" ;;
-        3[0-9])     printf "$BAT_30 \x09$CAPACITY%%\x01\n" ;;
-        2[0-9])     printf "$BAT_20 \x05$CAPACITY%%\x01\n"  ;;
-        1[0-9])     printf "$BAT_10 \x08$CAPACITY%%\x01\n"  ;;
-        [0-9])      printf "$BAT_0 \x08$CAPACITY%%\x01\n" ;;
-    esac
+	case $CAPACITY in
+	100)        printf "$BAT_100\04 $CAPACITY%%\01\n"      ;;
+	9[0-9])     printf "$BAT_90\04 $CAPACITY%%\01\n"       ;;
+	8[0-9])     printf "$BAT_80 $CAPACITY%%\n"             ;;
+	7[0-9])     printf "$BAT_70 $CAPACITY%%\n"             ;;
+	6[0-9])     printf "$BAT_60 $CAPACITY%%\n"             ;;
+	5[0-9])     printf "$BAT_50 $CAPACITY%%\n"             ;;
+	4[0-9])     printf "$BAT_40 $CAPACITY%%\n"             ;;
+	3[0-9])     printf "$BAT_30\07 $CAPACITY%%\01\n"       ;;
+	2[0-9])     printf "$BAT_20\05 $CAPACITY%%\01\n"       ;;
+	1[0-9])     printf "$BAT_10\08 $CAPACITY%%\01\n"       ;;
+	[0-9])      printf "$BAT_0\08 $CAPACITY%%\01\n"        ;;
+	esac
 fi
