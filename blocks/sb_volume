@@ -1,6 +1,12 @@
 #!/bin/sh
-ICON_ON=''
-ICON_OFF=''
 VOLUME="$(pamixer --get-volume)"
 
-[ "$VOLUME" = 0 ] && printf "\03$ICON_OFF MUTE\01\n" || printf "$ICON_ON $VOLUME%%\n"
+if [ "$VOLUME" -gt 30 ]; then
+	ICON=""
+elif [ "$VOLUME" -gt 10 ]; then
+	ICON=""
+else
+	ICON=""
+fi
+
+printf "$ICON $VOLUME%%\n"
