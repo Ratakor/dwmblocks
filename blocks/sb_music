@@ -4,7 +4,7 @@
 trim_quotes() {
 	set -f
 	old_ifs=$IFS
-	IFS=\"\'
+	IFS=\"
 	set -- $1
 	IFS=
 	printf '%s\n' "$*"
