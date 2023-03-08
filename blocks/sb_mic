@@ -1,7 +1,11 @@
 #!/bin/sh
 ICON_MUTED=''
 ICON_UNMUTED=''
+STATUS="$(pactl get-source-mute @DEFAULT_SOURCE@)"
 
-[ -n "$(pactl get-source-mute @DEFAULT_SOURCE@ | grep yes)" ] &&
-	printf "\05$ICON_MUTED\01\n" ||
-	printf "$ICON_UNMUTED\n"
+case $STATUS in
+*yes)
+	printf '\05%s\01\n' "$ICON_MUTED" ;;
+*no)
+	printf '%s\n' "$ICON_UNMUTED" ;;
+esac

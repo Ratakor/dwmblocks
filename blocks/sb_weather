@@ -1,4 +1,5 @@
 #!/bin/sh
+# I cba rewrite this one
 WEATHER="$(curl -s v2.wttr.in | awk '/Weather:/ {gsub(",", " "); print $2 " " $4 " " $5}')"
 ICON="$(printf "$WEATHER" | awk '{print $1}')"
 TEMP1="$(printf "$WEATHER" | awk '{print $2}')"

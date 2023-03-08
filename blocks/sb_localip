@@ -1,4 +1,5 @@
 #!/bin/sh
+# I don't use this one tbh so it's not well optimized
 ICON='ﯱ'
 IP="$(ip addr | grep -e "inet " | awk 'NR==2' | sed 's/^.*inet.//g; s/\/.*//g')"
 printf "$ICON $IP\n"

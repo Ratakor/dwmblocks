@@ -1,4 +1,4 @@
 #!/bin/sh
 ICON='ﳔ'
-MEMORY="$(free -h | awk '/Mem/ { print $3"/"$2 }' | sed s/i//g)"
+MEMORY="$(free -h | awk '/Mem/ {gsub("i", " "); print $3"/"$2 }')"
 printf "$ICON $MEMORY\n"

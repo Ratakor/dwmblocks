@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 CAPACITY=$(cat /sys/class/power_supply/BAT0/capacity)
 
 BAT_0='󰂎'
