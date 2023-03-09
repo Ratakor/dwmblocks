@@ -14,19 +14,18 @@ trim_quotes() {
 
 ICON_PAUSE=''
 ICON_PLAY=''
-PAUSE="$(trim_quotes $(printf "{ \"command\": [\"get_property_string\", \"pause\"] }\n"\
-	| socat - /tmp/mpvsocket 2> /dev/null | jq ".data"))"
-TITLE="$(trim_quotes $(printf "{ \"command\": [\"get_property\", \"filtered-metadata\"] }\n"\
-	| socat - /tmp/mpvsocket 2> /dev/null | jq ".data.Title"))"
+PAUSE="$(trim_quotes "$(printf "{ \"command\": [\"get_property_string\", \"pause\"] }\n"\
+	| socat - /tmp/mpvsocket 2> /dev/null | jq ".data")")"
+TITLE="$(trim_quotes "$(printf "{ \"command\": [\"get_property\", \"filtered-metadata\"] }\n"\
+	| socat - /tmp/mpvsocket 2> /dev/null | jq ".data.Title")")"
 
-if [ "$TITLE" = "null" ]; then
-	TITLE="$(yt-dlp --skip-download --get-title $(trim_quotes\
-	$(printf "{ \"command\": [\"get_property\", \"path\"] }\n"\
-	| socat - /tmp/mpvsocket 2> /dev/null | jq ".data")) 2> /dev/null)"
-fi
+[ "$TITLE" = "null" ]
+	TITLE="$(yt-dlp --skip-download --get-title "$(trim_quotes\
+	"$(printf "{ \"command\": [\"get_property\", \"path\"] }\n"\
+	| socat - /tmp/mpvsocket 2> /dev/null | jq ".data")")" 2> /dev/null)"
 
 if [ "$PAUSE" = "yes" ]; then
-	printf "$ICON_PAUSE $TITLE\n"
+	printf '%s %s\n' "$ICON_PAUSE" "$TITLE"
 elif [ "$PAUSE" = "no" ]; then
-	printf "$ICON_PLAY $TITLE\n"
+	printf '%s %s\n' "$ICON_PLAY" "$TITLE"
 fi

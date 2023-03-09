@@ -3,8 +3,6 @@ ICON=''
 H="$(date '+%H')"
 M="$(date '+%M')"
 
-if [ "$H" -ge 23 ] || [ "$H" -le 6 ]; then
-	printf "\05$ICON $H:$M\01\n"
-else
-	printf "$ICON $H:$M\n"
-fi
+[ "$H" -ge 23 ] || [ "$H" -le 6 ] &&
+	printf '\05%s %s:%s\01\n' "$ICON" "$H" "$M" ||
+	printf '%s %s:%s\n' "$ICON" "$H" "$M"

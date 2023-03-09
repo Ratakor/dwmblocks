@@ -9,4 +9,4 @@ else
 	ICON=""
 fi
 
-printf "$ICON $VOLUME%%\n"
+printf '%s %s%%\n' "$ICON" "$VOLUME"

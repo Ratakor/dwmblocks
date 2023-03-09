@@ -1,4 +1,4 @@
 #!/bin/sh
 ICON=''
 FANSPEED="$(sensors | awk '/fan1/ {print $2}')"
-printf "$ICON $FANSPEED RPM\n"
+printf '%s %s RPM\n' "$ICON" "$FANSPEED"

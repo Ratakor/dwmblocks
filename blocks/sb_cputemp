@@ -2,4 +2,6 @@
 ICON=''
 FIRE=''
 TEMP="$(sensors | awk '/temp1/ {gsub("+", " "); gsub("\\..", " "); print $2}')"
-[ "$TEMP" -ge 70 ] && printf "\06$FIRE $TEMP°C\01\n" || printf "$ICON $TEMP°C\n"
+[ "$TEMP" -ge 70 ] &&
+	printf '\06%s %s°C\01\n' "$FIRE" "$TEMP" ||
+	printf '%s %s°C\n' "$ICON" "$TEMP"

@@ -1,5 +1,4 @@
 #!/bin/sh
 ICON=''
 PERCENTAGE="$(((($(date +%H)*60+$(date +%M))*100)/1440))"
-
-printf "$ICON $PERCENTAGE%%\n"
+printf '%s %s%%\n' "$ICON" "$PERCENTAGE"

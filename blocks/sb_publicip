@@ -1,4 +1,4 @@
 #!/bin/sh
 ICON=''
 IP="$(curl -s ifconfig.me)"
-printf "$ICON $IP\n"
+printf '%s %s\n' "$ICON" "$IP"
