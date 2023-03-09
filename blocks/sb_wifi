@@ -3,7 +3,7 @@ WIFI_FULL_ICON='󰤨'
 WIFI_MID_ICON='󰤢'
 WIFI_LOW_ICON='󰤟'
 NO_WIFI_ICON='󰤯'
-PERCENTAGE="$(cat /proc/net/wireless | awk '/wlan0/ {print "", int($3 * 100 / 70)}' | xargs)"
+PERCENTAGE="$(cat /proc/net/wireless | awk '/wlan0/ {printf "%d\n", int($3 * 100 / 70)}')"
 
 case $PERCENTAGE in
 100|9[0-9]|8[0-9]|7[0-9])     printf "$WIFI_FULL_ICON HIGH\n" ;;

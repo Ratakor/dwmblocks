@@ -1,11 +1,9 @@
 #!/bin/sh
-# I cba rewrite this one
-WEATHER="$(curl -s v2.wttr.in | awk '/Weather:/ {gsub(",", " "); print $2 " " $4 " " $5}')"
-ICON="$(printf "$WEATHER" | awk '{print $1}')"
-TEMP1="$(printf "$WEATHER" | awk '{print $2}')"
-TEMP2="$(printf "$WEATHER" | awk '{print $3}')"
+WEATHER="$(curl -s v2.wttr.in)"
+ICON="$(printf '%s\n' "$WEATHER" | awk '/Weather:/ {print $2}')"
+TEMP="$(printf '%s\n' "$WEATHER" | sed -n -e 's/^.*Weather:.*+//p' | cut -f1 -d ,)"
 
-case "$TEMP1" in
-+*|-*)  printf "$ICON $TEMP1\n" ;;
-*)      printf "$ICON $TEMP2\n" ;;
-esac
+[ -z "$TEMP" ] &&
+	"$(printf '%s\n' "$WEATHER" | sed -n -e 's/^.*Weather:.*-//p' | cut -f1 -d ,)"
+
+printf '%s %s\n' "$ICON" "$TEMP"
