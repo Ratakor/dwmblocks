@@ -1,5 +1,8 @@
 #!/bin/sh
-WEATHER="$(curl -s v2.wttr.in)"
+WEATHER="$(curl -s -m 3 v2.wttr.in)"
+
+[ -z "$WEATHER" ] && exit 1
+
 ICON="$(printf '%s\n' "$WEATHER" | awk '/Weather:/ {print $2}')"
 TEMP="$(printf '%s\n' "$WEATHER" | sed -n -e 's/^.*Weather:.*+//p' | cut -f1 -d ,)"
 
