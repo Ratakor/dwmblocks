@@ -1,10 +1,11 @@
 #!/bin/sh
-[ $(pgrep music) ] 2> /dev/null && exit 0
+[ $(pgrep music) ] 2> /dev/null && exit 1
 
 trim_quotes() {
 	set -f
 	old_ifs=$IFS
 	IFS=\"
+	# shellcheck disable=SC2086
 	set -- $1
 	IFS=
 	printf '%s\n' "$*"
@@ -19,7 +20,7 @@ PAUSE="$(trim_quotes "$(printf "{ \"command\": [\"get_property_string\", \"pause
 TITLE="$(trim_quotes "$(printf "{ \"command\": [\"get_property\", \"filtered-metadata\"] }\n"\
 	| socat - /tmp/mpvsocket 2> /dev/null | jq ".data.Title")")"
 
-[ "$TITLE" = "null" ]
+[ "$TITLE" = "null" ] &&
 	TITLE="$(yt-dlp --skip-download --get-title "$(trim_quotes\
 	"$(printf "{ \"command\": [\"get_property\", \"path\"] }\n"\
 	| socat - /tmp/mpvsocket 2> /dev/null | jq ".data")")" 2> /dev/null)"
