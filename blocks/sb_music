@@ -10,18 +10,8 @@ ICON_PAUSE=''
 ICON_PLAY=''
 PAUSE="$(strip "$(printf '{ "command": ["get_property_string", "pause"] }\n'\
 	| socat - /tmp/mpvsocket 2> /dev/null)")"
-
-case $(cat /tmp/music) in
-local)
-	TITLE="$(strip "$(printf '{ "command": ["get_property", "metadata/title"] }\n'\
-		| socat - /tmp/mpvsocket 2> /dev/null)")" ;;
-radio)
-	TITLE="$(strip "$(printf '{ "command": ["get_property", "metadata/icy-title"]}\n'\
-		| socat - /tmp/mpvsocket 2> /dev/null)")" ;;
-yt)
-	TITLE="$(strip "$(printf '{ "command": ["get_property", "media-title"] }\n'\
-		| socat - /tmp/mpvsocket 2> /dev/null)")" ;;
-esac
+TITLE="$(strip "$(printf '{ "command": ["get_property", "media-title"] }\n'\
+	| socat - /tmp/mpvsocket 2> /dev/null)")"
 
 if [ "$PAUSE" = "yes" ]; then
 	printf '%s %s\n' "$ICON_PAUSE" "$TITLE"
