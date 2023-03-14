@@ -1,29 +1,27 @@
 #!/bin/sh
 [ $(pgrep music) ] 2> /dev/null && exit 1
 
-trim_quotes() {
-	set -f
-	old_ifs=$IFS
-	IFS=\"
-	# shellcheck disable=SC2086
-	set -- $1
-	IFS=
-	printf '%s\n' "$*"
-	IFS=$old_ifs
-	set +f
+strip() {
+	tmp="${1##{\"data\":\"}"
+	printf '%s\n' "${tmp%%\",\"request_id\":0,\"error\":\"success\"\}}"
 }
 
 ICON_PAUSE=''
 ICON_PLAY=''
-PAUSE="$(trim_quotes "$(printf "{ \"command\": [\"get_property_string\", \"pause\"] }\n"\
-	| socat - /tmp/mpvsocket 2> /dev/null | jq ".data")")"
-TITLE="$(trim_quotes "$(printf "{ \"command\": [\"get_property\", \"filtered-metadata\"] }\n"\
-	| socat - /tmp/mpvsocket 2> /dev/null | jq ".data.Title")")"
+PAUSE="$(strip "$(printf '{ "command": ["get_property_string", "pause"] }\n'\
+	| socat - /tmp/mpvsocket 2> /dev/null)")"
 
-[ "$TITLE" = "null" ] &&
-	TITLE="$(yt-dlp --skip-download --get-title "$(trim_quotes\
-	"$(printf "{ \"command\": [\"get_property\", \"path\"] }\n"\
-	| socat - /tmp/mpvsocket 2> /dev/null | jq ".data")")" 2> /dev/null)"
+case $(cat /tmp/music) in
+local)
+	TITLE="$(strip "$(printf '{ "command": ["get_property", "metadata/title"] }\n'\
+		| socat - /tmp/mpvsocket 2> /dev/null)")" ;;
+radio)
+	TITLE="$(strip "$(printf '{ "command": ["get_property", "metadata/icy-title"]}\n'\
+		| socat - /tmp/mpvsocket 2> /dev/null)")" ;;
+yt)
+	TITLE="$(strip "$(printf '{ "command": ["get_property", "media-title"] }\n'\
+		| socat - /tmp/mpvsocket 2> /dev/null)")" ;;
+esac
 
 if [ "$PAUSE" = "yes" ]; then
 	printf '%s %s\n' "$ICON_PAUSE" "$TITLE"
